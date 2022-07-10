@@ -61,7 +61,7 @@ static VkSwapchainKHR createSwapchain(VkDevice device, VkSurfaceKHR surface, VkS
 	createInfo.imageExtent.width = width;
 	createInfo.imageExtent.height = height;
 	createInfo.imageArrayLayers = 1;
-	createInfo.imageUsage = VK_IMAGE_USAGE_TRANSFER_DST_BIT;
+	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 	createInfo.queueFamilyIndexCount = 1;
 	createInfo.pQueueFamilyIndices = &familyIndex;
 	createInfo.preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;

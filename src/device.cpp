@@ -164,7 +164,8 @@ VkPhysicalDevice pickPhysicalDevice(VkPhysicalDevice* physicalDevices, uint32_t 
 	return result;
 }
 
-VkDevice createDevice(VkInstance instance, VkPhysicalDevice physicalDevice, uint32_t familyIndex, bool pushDescriptorsSupported, bool checkpointsSupported, bool meshShadingSupported)
+VkDevice createDevice(VkInstance instance, VkPhysicalDevice physicalDevice, uint32_t familyIndex, bool pushDescriptorsSupported, 
+	bool checkpointsSupported, bool meshShadingSupported, bool drawParametersSupported)
 {
 	float queuePriorities[] = { 1.0f };
 
@@ -187,6 +188,9 @@ VkDevice createDevice(VkInstance instance, VkPhysicalDevice physicalDevice, uint
 	if (meshShadingSupported)
 		extensions.push_back(VK_NV_MESH_SHADER_EXTENSION_NAME);
 
+	if (drawParametersSupported)
+		extensions.push_back(VK_KHR_SHADER_DRAW_PARAMETERS_EXTENSION_NAME);
+
 	VkPhysicalDeviceFeatures2 features = { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2 };
 	features.features.multiDrawIndirect = true;
 	features.features.pipelineStatisticsQuery = true;
@@ -195,6 +199,7 @@ VkDevice createDevice(VkInstance instance, VkPhysicalDevice physicalDevice, uint
 
 	VkPhysicalDeviceVulkan11Features features11 = { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES };
 	features11.storageBuffer16BitAccess = true;
+	features11.shaderDrawParameters = true;
 
 	VkPhysicalDeviceVulkan12Features features12 = { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES };
 	features12.drawIndirectCount = true;

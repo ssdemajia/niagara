@@ -485,12 +485,14 @@ int main(int argc, const char** argv)
 	bool pushDescriptorsSupported = false;
 	bool checkpointsSupported = false;
 	bool meshShadingSupported = false;
+	bool drawParameterSupported = false;
 
 	for (auto& ext : extensions)
 	{
 		pushDescriptorsSupported = pushDescriptorsSupported || strcmp(ext.extensionName, VK_KHR_PUSH_DESCRIPTOR_EXTENSION_NAME) == 0;
 		checkpointsSupported = checkpointsSupported || strcmp(ext.extensionName, VK_NV_DEVICE_DIAGNOSTIC_CHECKPOINTS_EXTENSION_NAME) == 0;
 		meshShadingSupported = meshShadingSupported || strcmp(ext.extensionName, VK_NV_MESH_SHADER_EXTENSION_NAME) == 0;
+		drawParameterSupported = drawParameterSupported || strcmp(ext.extensionName, VK_KHR_SHADER_DRAW_PARAMETERS_EXTENSION_NAME) == 0;
 	}
 
 	meshShadingEnabled = meshShadingSupported;
@@ -502,7 +504,7 @@ int main(int argc, const char** argv)
 	uint32_t familyIndex = getGraphicsFamilyIndex(physicalDevice);
 	assert(familyIndex != VK_QUEUE_FAMILY_IGNORED);
 
-	VkDevice device = createDevice(instance, physicalDevice, familyIndex, pushDescriptorsSupported, checkpointsSupported, meshShadingSupported);
+	VkDevice device = createDevice(instance, physicalDevice, familyIndex, pushDescriptorsSupported, checkpointsSupported, meshShadingSupported, drawParameterSupported);
 	assert(device);
 
 	volkLoadDevice(device);
